@@ -1,0 +1,17 @@
+name: PR Security Scan
+
+on:
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run simple security scan
+        run: |
+          echo "Running security scan..."
+          grep -R "SELECT .*\\+.*" . && echo "Possible SQL Injection detected!" || echo "No issues found"
