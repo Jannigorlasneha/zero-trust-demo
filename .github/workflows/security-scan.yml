@@ -14,4 +14,9 @@ jobs:
       - name: Run simple security scan
         run: |
           echo "Running security scan..."
-          grep -R "SELECT .*\\+.*" . && echo "Possible SQL Injection detected!" || echo "No issues found"
+          if grep -R "SELECT .*\\+.*" .; then
+            echo "High Risk: SQL Injection detected"
+            exit 1
+          else
+            echo "No issues found"
+          fi
